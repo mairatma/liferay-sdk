@@ -4,7 +4,7 @@ var fs = require('fs');
 var path = require('path');
 var soynode = require('soynode');
 var util = require('util');
-var TemplateEngine = require('./TemplateEngine');
+var TemplateEngine = require('../template/TemplateEngine');
 
 /**
  * Soy template engine implementation.

@@ -5,8 +5,8 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var lazypipe = require('lazypipe');
 var plugins = require('gulp-load-plugins')();
-var config = require('./ProductFlavors').generateFlavoredConfig();
-var SoyTemplateEngine = require('./SoyTemplateEngine');
+var config = require('../flavor/ProductFlavors').generateFlavoredConfig();
+var SoyTemplateEngine = require('../template/SoyTemplateEngine');
 
 module.exports = {
   buildCss: buildCssPipeline(),

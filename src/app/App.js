@@ -4,8 +4,8 @@ var express = require('express');
 var http = require('http');
 var madvoc = require('madvoc-route');
 var path = require('path');
-var BaseAction = require('./BaseAction');
-var ClassLoader = require('./ClassLoader');
+var BaseAction = require('../action/BaseAction');
+var ClassLoader = require('../utils/ClassLoader');
 
 /**
  * Provides an application wrapper class to some engine, by default for

@@ -4,7 +4,7 @@ var assert = require('assert');
 var fs = require('fs');
 var sinon = require('sinon');
 var soynode = require('soynode');
-var SoyTemplateEngine = require('../../../tasks/lib/SoyTemplateEngine');
+var SoyTemplateEngine = require('../../../src/template/SoyTemplateEngine');
 
 describe('SoyTemplateEngine', function() {
   before(function() {

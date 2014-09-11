@@ -1,7 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
-var config = require('./lib/ProductFlavors').generateFlavoredConfig();
+var config = require('../src/flavor/ProductFlavors').generateFlavoredConfig();
 
 gulp.task('watch', ['serve'], function(done) {
   gulp.watch('src/**', ['build-copy']);

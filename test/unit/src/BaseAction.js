@@ -2,8 +2,8 @@
 
 var assert = require('assert');
 var sinon = require('sinon');
-var BaseAction = require('../../../tasks/lib/BaseAction');
-var TemplateEngine = require('../../../tasks/lib/TemplateEngine');
+var BaseAction = require('../../../src/action/BaseAction');
+var TemplateEngine = require('../../../src/template/TemplateEngine');
 
 describe('BaseAction', function() {
   before(function() {

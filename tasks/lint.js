@@ -2,7 +2,7 @@
 
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
-var config = require('./lib/ProductFlavors').generateFlavoredConfig();
+var config = require('../src/flavor/ProductFlavors').generateFlavoredConfig();
 
 gulp.task('lint', function() {
   return gulp.src(['tasks/**/*.js', 'test/**/*.js', config.globScript])

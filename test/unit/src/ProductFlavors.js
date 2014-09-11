@@ -4,7 +4,7 @@ var assert = require('assert');
 var mockery = require('mockery');
 var path = require('path');
 var sinon = require('sinon');
-var ProductFlavors = require('../../../tasks/lib/ProductFlavors');
+var ProductFlavors = require('../../../src/flavor/ProductFlavors');
 
 describe('ProductFlavors', function() {
   before(function() {
@@ -86,8 +86,8 @@ describe('ProductFlavors', function() {
         flavor: 'production'
       }
     });
-    delete require.cache[path.resolve(process.cwd(), 'tasks/lib/ProductFlavors.js')];
-    ProductFlavors = require('../../../tasks/lib/ProductFlavors');
+    delete require.cache[path.resolve(process.cwd(), 'src/flavor/ProductFlavors.js')];
+    ProductFlavors = require('../../../src/flavor/ProductFlavors');
 
     ProductFlavors.prototype.configFilepath = 'config/file/path';
     ProductFlavors.prototype.appConfigFilepath = 'app/config/file/path';

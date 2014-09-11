@@ -1,13 +1,13 @@
 'use strict';
 
 var assert = require('assert');
-var ClassLoader = require('../../../tasks/lib/ClassLoader');
+var ClassLoader = require('../../../src/utils/ClassLoader');
 
 describe('ClassLoader', function() {
   it('should load classes correctly', function() {
     var classLoader = new ClassLoader();
 
-    var TestModule = classLoader.loadClass('test/unit/lib/fixture/TestModule');
+    var TestModule = classLoader.loadClass('test/unit/src/fixture/TestModule');
     assert.strictEqual(
       1,
       TestModule.test1,
@@ -17,12 +17,12 @@ describe('ClassLoader', function() {
 
   it('should work with the given base path', function() {
     var classLoader = new ClassLoader();
-    classLoader.setBasePath('test/unit/lib/fixture');
+    classLoader.setBasePath('test/unit/src/fixture');
 
     var TestModule = classLoader.loadClass('TestModule');
 
     assert.strictEqual(
-      'test/unit/lib/fixture',
+      'test/unit/src/fixture',
       classLoader.getBasePath(),
       'Base path should have been updated'
     );
@@ -37,8 +37,8 @@ describe('ClassLoader', function() {
   it('should cache classes', function() {
     var classLoader = new ClassLoader();
 
-    var TestModule = classLoader.loadClass('test/unit/lib/fixture/TestModule');
-    var TestModule2 = classLoader.loadClass('test/unit/lib/fixture/TestModule');
+    var TestModule = classLoader.loadClass('test/unit/src/fixture/TestModule');
+    var TestModule2 = classLoader.loadClass('test/unit/src/fixture/TestModule');
 
     assert.strictEqual(
       TestModule,
@@ -50,9 +50,9 @@ describe('ClassLoader', function() {
   it('should clear cache when requested', function() {
     var classLoader = new ClassLoader();
 
-    var TestModule = classLoader.loadClass('test/unit/lib/fixture/TestModule');
+    var TestModule = classLoader.loadClass('test/unit/src/fixture/TestModule');
     classLoader.clearCache();
-    var TestModule2 = classLoader.loadClass('test/unit/lib/fixture/TestModule');
+    var TestModule2 = classLoader.loadClass('test/unit/src/fixture/TestModule');
 
     assert.notStrictEqual(
       TestModule,
@@ -65,10 +65,10 @@ describe('ClassLoader', function() {
     var classLoader = new ClassLoader();
 
     assert.throws(function() {
-      classLoader.loadClass('test/unit/lib/fixture/TestModule2');
+      classLoader.loadClass('test/unit/src/fixture/TestModule2');
     },
       Error,
-      'Class test/lib/fixture/TestModule2 not found.'
+      'Class test/src/fixture/TestModule2 not found.'
     );
   });
 });

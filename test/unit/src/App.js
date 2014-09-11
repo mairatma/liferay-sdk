@@ -5,8 +5,8 @@ var express = require('express');
 var http = require('http');
 var madvoc = require('madvoc-route');
 var sinon = require('sinon');
-var App = require('../../../tasks/lib/App');
-var TemplateEngine = require('../../../tasks/lib/TemplateEngine');
+var App = require('../../../src/app/App');
+var TemplateEngine = require('../../../src/template/TemplateEngine');
 
 describe('App', function() {
   before(function() {

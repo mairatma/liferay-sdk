@@ -5,10 +5,10 @@ var gulp = require('gulp');
 var gutil = require('gulp-util');
 var madvoc = require('madvoc-route');
 var path = require('path');
-var App = require('./lib/App');
-var AppEventEmitter = require('./lib/AppEventEmitter');
-var SoyTemplateEngine = require('./lib/SoyTemplateEngine');
-var config = require('./lib/ProductFlavors').generateFlavoredConfig();
+var App = require('../src/app/App');
+var AppEventEmitter = require('../src/app/AppEventEmitter');
+var SoyTemplateEngine = require('../src/template/SoyTemplateEngine');
+var config = require('../src/flavor/ProductFlavors').generateFlavoredConfig();
 
 gulp.task('serve', ['build'], function() {
   var app = new App();

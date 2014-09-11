@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var sinon = require('sinon');
-var AppEventEmitter = require('../../../tasks/lib/AppEventEmitter');
+var AppEventEmitter = require('../../../src/app/AppEventEmitter');
 
 describe('AppEventEmitter', function() {
   it('should emit events', function() {

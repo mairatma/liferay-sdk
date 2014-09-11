@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var TemplateEngine = require('../../../tasks/lib/TemplateEngine');
+var TemplateEngine = require('../../../src/template/TemplateEngine');
 
 describe('TemplateEngine', function() {
   it('should be instantiable', function() {

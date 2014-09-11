@@ -3,22 +3,22 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var merge = require('merge-stream');
-var util = require('./lib/util');
-var config = require('./lib/ProductFlavors').generateFlavoredConfig();
+var pipelines = require('../src/utils/pipelines');
+var config = require('../src/flavor/ProductFlavors').generateFlavoredConfig();
 
 gulp.task('format-scripts', function() {
   var scripts = gulp.src(config.globScript)
-    .pipe(plugins.plumber(util.logError))
+    .pipe(plugins.plumber(pipelines.logError))
     .pipe(plugins.esformatter())
     .pipe(gulp.dest('src/public'));
 
   var tasks = gulp.src(['tasks/**/*.js'])
-    .pipe(plugins.plumber(util.logError))
+    .pipe(plugins.plumber(pipelines.logError))
     .pipe(plugins.esformatter())
     .pipe(gulp.dest('tasks'));
 
   var tests = gulp.src('test/**/*.js')
-    .pipe(plugins.plumber(util.logError))
+    .pipe(plugins.plumber(pipelines.logError))
     .pipe(plugins.esformatter())
     .pipe(gulp.dest('test'));
 
@@ -27,7 +27,7 @@ gulp.task('format-scripts', function() {
 
 gulp.task('format-styles', function() {
   var styles = gulp.src(config.globStyle)
-    .pipe(plugins.plumber(util.logError))
+    .pipe(plugins.plumber(pipelines.logError))
     .pipe(plugins.csscomb())
     .pipe(plugins.cssbeautify({
       indent: '  '
@@ -35,7 +35,7 @@ gulp.task('format-styles', function() {
     .pipe(gulp.dest('src/public'));
 
   var scss = gulp.src(config.globScss)
-    .pipe(plugins.plumber(util.logError))
+    .pipe(plugins.plumber(pipelines.logError))
     .pipe(plugins.csscomb())
     .pipe(plugins.cssbeautify({
       indent: '  '
