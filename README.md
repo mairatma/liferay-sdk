@@ -1,6 +1,4 @@
-liferay-app
+liferay-sdk
 ===========
 
-[![Build Status](http://img.shields.io/travis/eduardolundgren/liferay-app/master.svg?style=flat)](https://travis-ci.org/eduardolundgren/liferay-app)
-
-Liferay Web App Starter Kit
+[![Build Status](http://img.shields.io/travis/eduardolundgren/liferay-sdk/master.svg?style=flat)](https://travis-ci.org/eduardolundgren/liferay-sdk)
