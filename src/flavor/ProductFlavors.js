@@ -33,7 +33,7 @@ ProductFlavors.generateFlavoredConfig = function() {
  * @default src/config.js
  * @protected
  */
-ProductFlavors.prototype.appConfigFilepath = 'src/config.js';
+ProductFlavors.prototype.appConfigFilepath = 'config.js';
 
 /**
  * Holds the <code>config.js</code> file path.
@@ -41,7 +41,7 @@ ProductFlavors.prototype.appConfigFilepath = 'src/config.js';
  * @default config.js
  * @protected
  */
-ProductFlavors.prototype.configFilepath = 'config.js';
+ProductFlavors.prototype.configFilepath = path.join(__dirname, '../../config.js');
 
 /**
  * Generates a configuration object. If <code>opt_flavor</code> is specified
