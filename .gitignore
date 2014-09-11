@@ -1,6 +1,4 @@
 .sass-cache
 .tmp
-src/config.js
-dist
 node_modules
 coverage
