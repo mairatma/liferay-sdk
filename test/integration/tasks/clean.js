@@ -11,8 +11,12 @@ describe('clean', function() {
     TestUtils.requireTask('clean');
   });
 
-  after(function() {
-    TestUtils.after();
+  beforeEach(function(done) {
+    TestUtils.beforeEach(done);
+  });
+
+  after(function(done) {
+    TestUtils.after(done);
   });
 
   it('should clean up the dist directory', function(done) {
