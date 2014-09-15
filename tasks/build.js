@@ -11,11 +11,11 @@ gulp.task('build-compass', function() {
   return gulp.src(config.globScss)
     .pipe(plugins.plumber(pipelines.logError))
     .pipe(plugins.compass({
-      config_file: 'src/styles/.compass',
-      css: 'dist/styles',
-      image: 'dist/images',
+      config_file: 'src/public/styles/config.rb',
+      css: 'dist/public/styles',
+      image: 'dist/public/images',
       logging: true,
-      sass: 'src/styles'
+      sass: 'src/public/styles'
     }))
     .pipe(plugins.if(config.optimizeStyle, pipelines.buildCss()))
     .pipe(gulp.dest('dist/public/styles'));
