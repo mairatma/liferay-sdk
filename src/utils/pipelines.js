@@ -38,7 +38,10 @@ function applyFrontMatterVariables() {
 function buildCssPipeline() {
   return lazypipe()
     .pipe(function() {
-      return plugins.if('*.css', plugins.autoprefixer(config.autoprefixer).pipe(plugins.csso()));
+      return plugins.if('*.css', plugins.autoprefixer(config.autoprefixer));
+    })
+    .pipe(function() {
+      return plugins.if('*.css', plugins.csso());
     });
 }
 
