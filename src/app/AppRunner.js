@@ -34,8 +34,9 @@ AppRunner.prototype.app = null;
 /**
  * Flag indicating if the runner's logs should be muted.
  * @type {Boolean}
+ * @default false
  */
-AppRunner.prototype.mute = null;
+AppRunner.prototype.mute = false;
 
 /**
  * Gets the app.
