@@ -33,7 +33,7 @@
     "gulp-usemin": "^0.3.7",
     "gulp-util": "^3.0.0",
     "gulp-wrapper": "^0.1.5",
-    "jshint-stylish": "^0.4.0",
+    "jshint-stylish": "^1.0.0",
     "lazypipe": "^0.2.1",
     "madvoc-route": "^1.0.0",
     "merge-stream": "^0.1.5",
