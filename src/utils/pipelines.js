@@ -56,7 +56,7 @@ function buildFrontMatterPipeline() {
       },
       footer: '\n{/template}'
     }))
-    .pipe(plugins.if, '*.html', gulp.dest('dist'))
+    .pipe(plugins.if, '*.html', gulp.dest('dist/public'))
     .pipe(plugins.soynode, {
       loadCompiledTemplates: true,
       locales: config.defaultLocale ? [config.defaultLocale] : null,
@@ -75,11 +75,18 @@ function buildHtmlPipeline() {
 }
 
 function buildHtmlResourcePipeline() {
+  var assets;
+
   return lazypipe()
-    .pipe(plugins.usemin, {
-      assetsDir: 'dist',
-      css: ['concat'],
-      js: ['concat']
+    .pipe(function() {
+      assets = plugins.useref.assets({searchPath: ['src/public', 'dist/public']});
+      return assets;
+    })
+    .pipe(function() {
+      return assets.restore();
+    })
+    .pipe(function() {
+      return plugins.useref();
     });
 }
 

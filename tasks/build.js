@@ -35,13 +35,14 @@ gulp.task('build-styles', function() {
 });
 
 gulp.task('build-html', function() {
-  return gulp.src(config.globHtml)
+  return gulp.src([config.globHtml, config.globMarkdown, config.globTemplate])
     .pipe(plugins.plumber(pipelines.logError))
     .pipe(plugins.if(config.optimizeHtmlResource, pipelines.buildHtmlResources()))
+    .pipe(plugins.ignore.include('**/*.{css,js,html}'))
     .pipe(plugins.if(config.optimizeStyle, pipelines.buildCss()))
     .pipe(plugins.if(config.optimizeScript, pipelines.buildJavaScript()))
     .pipe(plugins.if(config.optimizeHtml, pipelines.buildHtml()))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/public'));
 });
 
 gulp.task('build-icons', function() {
@@ -75,14 +76,13 @@ gulp.task('build-images', function() {
 gulp.task('build-markdown', function() {
   return gulp.src([config.globMarkdown, config.globTemplate])
     .pipe(plugins.plumber(pipelines.logError))
+    .pipe(plugins.if(config.optimizeHtmlResource, pipelines.buildHtmlResources()))
+    .pipe(plugins.ignore.exclude('**/*.{css,js,html}'))
     .pipe(plugins.frontMatter())
     .pipe(plugins.if(config.outputMarkdownAsHtml, pipelines.buildMarkdown()))
     .pipe(plugins.if(config.applyFrontMatterVariables, pipelines.buildFrontMatter()))
-    .pipe(plugins.if(config.optimizeHtmlResource, pipelines.buildHtmlResources()))
-    .pipe(plugins.if(config.optimizeStyle, pipelines.buildCss()))
-    .pipe(plugins.if(config.optimizeScript, pipelines.buildJavaScript()))
     .pipe(plugins.if(config.optimizeHtml, pipelines.buildHtml()))
-    .pipe(gulp.dest('dist'));
+    .pipe(gulp.dest('dist/public'));
 });
 
 gulp.task('build-scripts', function() {
@@ -95,6 +95,8 @@ gulp.task('build-scripts', function() {
 gulp.task('build-templates', function() {
   return gulp.src(config.globTemplate)
     .pipe(plugins.plumber(pipelines.logError))
+    .pipe(plugins.if(config.optimizeHtmlResource, pipelines.buildHtmlResources()))
+    .pipe(plugins.ignore.exclude('**/*.{css,js,html}'))
     .pipe(plugins.soynode({
       loadCompiledTemplates: true,
       locales: config.defaultLocale ? [config.defaultLocale] : null,
@@ -105,9 +107,6 @@ gulp.task('build-templates', function() {
       }
     }))
     .pipe(plugins.if(!config.outputTemplateAsJavascript, plugins.ignore.exclude('*.soy.js')))
-    .pipe(plugins.if(config.optimizeHtmlResource, pipelines.buildHtmlResources()))
-    .pipe(plugins.if(config.optimizeStyle, pipelines.buildCss()))
-    .pipe(plugins.if(config.optimizeScript, pipelines.buildJavaScript()))
     .pipe(plugins.if(config.optimizeHtml, pipelines.buildHtml()))
     .pipe(gulp.dest('dist'));
 });

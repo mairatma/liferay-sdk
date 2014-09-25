@@ -35,7 +35,7 @@ module.exports = {
     /**
      * Build pattern matching for HTML files.
      */
-    globHtml: 'src/**/*.html',
+    globHtml: 'src/public/**/*.html',
 
     /**
      * Build pattern matching for icon files.
@@ -50,7 +50,7 @@ module.exports = {
     /**
      * Build pattern matching for markdown files.
      */
-    globMarkdown: 'src/**/*.md',
+    globMarkdown: 'src/public/**/*.md',
 
     /**
      * Build pattern matching for JavaScript files.
