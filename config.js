@@ -86,7 +86,7 @@ module.exports = {
     /**
      * Parses build blocks in HTML files to replace references.
      */
-    optimizeHtmlResource: false,
+    optimizeHtmlResource: true,
 
     /**
      * Minifies images.

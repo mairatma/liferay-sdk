@@ -80,9 +80,7 @@ function buildHtmlResourcePipeline() {
       assetsDir: 'dist',
       css: ['concat'],
       js: ['concat']
-    })
-    .pipe(buildCssPipeline())
-    .pipe(buildJavaScriptPipeline());
+    });
 }
 
 function buildJavaScriptPipeline() {

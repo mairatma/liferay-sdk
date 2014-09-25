@@ -38,6 +38,8 @@ gulp.task('build-html', function() {
   return gulp.src(config.globHtml)
     .pipe(plugins.plumber(pipelines.logError))
     .pipe(plugins.if(config.optimizeHtmlResource, pipelines.buildHtmlResources()))
+    .pipe(plugins.if(config.optimizeStyle, pipelines.buildCss()))
+    .pipe(plugins.if(config.optimizeScript, pipelines.buildJavaScript()))
     .pipe(plugins.if(config.optimizeHtml, pipelines.buildHtml()))
     .pipe(gulp.dest('dist'));
 });
