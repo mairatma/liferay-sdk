@@ -79,6 +79,8 @@ gulp.task('build-markdown', function() {
     .pipe(plugins.if(config.outputMarkdownAsHtml, pipelines.buildMarkdown()))
     .pipe(plugins.if(config.applyFrontMatterVariables, pipelines.buildFrontMatter()))
     .pipe(plugins.if(config.optimizeHtmlResource, pipelines.buildHtmlResources()))
+    .pipe(plugins.if(config.optimizeStyle, pipelines.buildCss()))
+    .pipe(plugins.if(config.optimizeScript, pipelines.buildJavaScript()))
     .pipe(plugins.if(config.optimizeHtml, pipelines.buildHtml()))
     .pipe(gulp.dest('dist'));
 });
@@ -104,6 +106,8 @@ gulp.task('build-templates', function() {
     }))
     .pipe(plugins.if(!config.outputTemplateAsJavascript, plugins.ignore.exclude('*.soy.js')))
     .pipe(plugins.if(config.optimizeHtmlResource, pipelines.buildHtmlResources()))
+    .pipe(plugins.if(config.optimizeStyle, pipelines.buildCss()))
+    .pipe(plugins.if(config.optimizeScript, pipelines.buildJavaScript()))
     .pipe(plugins.if(config.optimizeHtml, pipelines.buildHtml()))
     .pipe(gulp.dest('dist'));
 });
