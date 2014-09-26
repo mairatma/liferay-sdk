@@ -20,11 +20,11 @@ gulp.task('watch', ['serve'], function(done) {
     } else if (minimatch(filepath, config.globMarkdown)) {
       tasks.push('build-globMarkdown');
     } else if (minimatch(filepath, config.globScript)) {
-      tasks.push('build-scripts');
+      tasks.push('build-scripts', 'build-html');
     } else if (minimatch(filepath, config.globScss)) {
       tasks.push('build-compass');
     } else if (minimatch(filepath, config.globStyle)) {
-      tasks.push('build-styles');
+      tasks.push('build-styles', 'build-html');
     } else if (minimatch(filepath, config.globTemplate)) {
       tasks.push('build-templates');
     } else {
