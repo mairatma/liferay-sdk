@@ -8,32 +8,27 @@ var config = require('../src/flavor/ProductFlavors').generateFlavoredConfig();
 
 gulp.task('watch', ['serve'], function(done) {
   gulp.watch('src/**/*.*', function(event) {
-    var tasks = ['build-copy'];
+    var tasks = [];
     var filepath = path.relative(process.cwd(), event.path);
 
     if (minimatch(filepath, config.globHtml)) {
       tasks.push('build-html');
-    }
-    if (minimatch(filepath, config.globIcon)) {
+    } else if (minimatch(filepath, config.globIcon)) {
       tasks.push('build-icons');
-    }
-    if (minimatch(filepath, config.globImage)) {
+    } else if (minimatch(filepath, config.globImage)) {
       tasks.push('build-images');
-    }
-    if (minimatch(filepath, config.globMarkdown)) {
+    } else if (minimatch(filepath, config.globMarkdown)) {
       tasks.push('build-globMarkdown');
-    }
-    if (minimatch(filepath, config.globScript)) {
+    } else if (minimatch(filepath, config.globScript)) {
       tasks.push('build-scripts');
-    }
-    if (minimatch(filepath, config.globScss)) {
+    } else if (minimatch(filepath, config.globScss)) {
       tasks.push('build-compass');
-    }
-    if (minimatch(filepath, config.globStyle)) {
+    } else if (minimatch(filepath, config.globStyle)) {
       tasks.push('build-styles');
-    }
-    if (minimatch(filepath, config.globTemplate)) {
+    } else if (minimatch(filepath, config.globTemplate)) {
       tasks.push('build-templates');
+    } else {
+      tasks.push('build-copy', 'build-images', 'build-icons', 'build-scripts', 'build-styles', 'build-compass', 'build-html', 'build-markdown', 'build-templates');
     }
 
     runSequence.apply(runSequence, tasks);
