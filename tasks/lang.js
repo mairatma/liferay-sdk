@@ -5,7 +5,7 @@ var plugins = require('gulp-load-plugins')();
 var config = require('../src/flavor/ProductFlavors').generateFlavoredConfig();
 
 gulp.task('lang', function() {
-  return gulp.src(config.globTemplate)
+  return gulp.src('dist/' + config.globTemplate)
     .pipe(plugins.soynode.lang({
       outputFile: config.extractedMessagesFilepath
     }));

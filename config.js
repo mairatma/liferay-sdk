@@ -28,6 +28,17 @@ module.exports = {
     ],
 
     /**
+     * Compass options.
+     */
+    compass: {
+      config_file: 'src/public/styles/config.rb',
+      css: 'dist/public/styles',
+      image: 'dist/public/images',
+      logging: false,
+      sass: 'src/public/styles'
+    },
+
+    /**
      * The default locale of the app, or null if it shouldn't be translated at all.
      */
     defaultLocale: null,
@@ -35,42 +46,60 @@ module.exports = {
     /**
      * Build pattern matching for HTML files.
      */
-    globHtml: 'src/public/**/*.html',
+    globHtml: '**/*.html',
 
     /**
      * Build pattern matching for icon files.
      */
-    globIcon: 'src/public/images/icons/**/*.svg',
+    globIconfont: '**/*.svg',
 
     /**
      * Build pattern matching for image files.
      */
-    globImage: 'src/public/**/*.{gif,jpeg,jpg,png,svg}',
+    globImage: '**/*.{gif,jpeg,jpg,png,svg}',
 
     /**
      * Build pattern matching for markdown files.
      */
-    globMarkdown: 'src/public/**/*.md',
+    globMarkdown: '**/*.md',
 
     /**
      * Build pattern matching for JavaScript files.
      */
-    globScript: 'src/public/**/*.js',
+    globScript: '**/*.js',
 
     /**
      * Build pattern matching for SASS files.
      */
-    globScss: 'src/public/styles/**/*.scss',
+    globScss: '**/*.scss',
 
     /**
      * Build pattern matching for CSS files.
      */
-    globStyle: 'src/public/**/*.css',
+    globStyle: '**/*.css',
 
     /**
      * Build pattern matching for Soy template files.
      */
-    globTemplate: 'src/**/*.soy',
+    globTemplate: '**/*.soy',
+
+    /**
+     * Icon font options.
+     */
+    iconfont: {
+      fontName: 'icons',
+      normalize: true,
+      log: function() {}
+    },
+
+    /**
+     * Icon font css options.
+     */
+    iconfontCss: {
+      fontName: 'icons',
+      path: __dirname + '/tasks/fixture/.icons',
+      targetPath: '../fonts/icons.css'
+    },
 
     /**
      * The path of the file that will contain all the messages extracted from
@@ -128,7 +157,14 @@ module.exports = {
     /**
      * The path of the files that contain the translations to be used by the app.
      */
-    translationsFilepath: 'src/translations/translations_{LOCALE}.xlf'
+    translationsFilepath: 'src/translations/translations_{LOCALE}.xlf',
+
+    /**
+     * Uglify options.
+     */
+    uglify: {
+      preserveComments: 'some'
+    }
   },
 
   /***
