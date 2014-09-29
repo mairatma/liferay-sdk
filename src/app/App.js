@@ -5,6 +5,7 @@ var express = require('express');
 var http = require('http');
 var madvoc = require('madvoc-route');
 var path = require('path');
+var timeout = require('connect-timeout');
 var BaseAction = require('../action/BaseAction');
 var ClassLoader = require('../utils/ClassLoader');
 
@@ -18,6 +19,7 @@ function App() {
   this.classLoader.setBasePath('dist');
 
   this.engine = express();
+  this.engine.use(timeout());
   this.engine.use(compression());
 }
 
