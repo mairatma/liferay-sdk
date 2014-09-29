@@ -1,5 +1,6 @@
 'use strict';
 
+var compression = require('compression');
 var express = require('express');
 var http = require('http');
 var madvoc = require('madvoc-route');
@@ -17,6 +18,7 @@ function App() {
   this.classLoader.setBasePath('dist');
 
   this.engine = express();
+  this.engine.use(compression());
 }
 
 /**
