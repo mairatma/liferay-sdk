@@ -9,12 +9,11 @@ var runSequence = require('run-sequence');
 var config = require('../src/flavor/ProductFlavors').generateFlavoredConfig();
 
 gulp.task('watch', ['serve'], function(done) {
-  gulp.watch('src/**/*.*', function(event) {
+  gulp.watch('src/**/*', function(event) {
     // Synchronize added and deleted files.
-    var distpath = path.join(
-      'dist',
-      path.relative(path.join(process.cwd(), 'src'), event.path)
-    );
+    var distpath = path.join('dist',
+      path.relative(path.join(process.cwd(), 'src'), event.path));
+
     if (event.type === 'deleted') {
       fs.unlink(distpath);
       gutil.log(gutil.colors.red('Deleted'), event.path);
