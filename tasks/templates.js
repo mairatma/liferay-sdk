@@ -93,6 +93,10 @@ function buildMarkdown(glob, done) {
     }))
     .pipe(gulp.dest('dist'))
     .on('end', function() {
+      if (soyedMarkdownFilepaths.length === 0) {
+        done();
+        return;
+      }
       buildSoy(soyedMarkdownFilepaths, false, function() {
         soyedMarkdownFilepaths.forEach(function(soyedFilepath, i) {
           var soyEngine = new SoyTemplateEngine();
