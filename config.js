@@ -31,7 +31,7 @@ module.exports = {
      * Compass options.
      */
     compass: {
-      config_file: 'src/public/styles/config.rb',
+      config_file: __dirname + '/tasks/fixture/config.rb',
       css: 'dist/public/styles',
       image: 'dist/public/images',
       logging: false,
