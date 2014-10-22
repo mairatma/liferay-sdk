@@ -1,11 +1,7 @@
 ---
 layout: static.hello
-basePath: public/
 name: Front Matter
-foo: You are awesome!
+foo: Lorem Ipsum.
 ---
-
-{$title}
-====================
 
 Did you know? {$foo}

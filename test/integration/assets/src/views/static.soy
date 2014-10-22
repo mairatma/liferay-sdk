@@ -1,0 +1,37 @@
+{namespace static}
+
+/**
+ * @param content
+ * @param name
+ */
+{template .hello}
+<!doctype>
+<html>
+<head>
+  <title>Greeting</title>
+
+  <!-- build:css styles/all.css -->
+  <link rel="stylesheet" href="styles/styles.css">
+  <!-- endbuild -->
+
+  <!-- build:js scripts/all.js -->
+  <script src="scripts/script.js"></script>
+  <!-- endbuild -->
+</head>
+<body>
+  {msg desc="Greets the logged in user"}Hello {$name}!{/msg}
+  <br>
+  {$content}
+</body>
+</html>
+{/template}
+
+/**
+ *
+ */
+{template .soyweb}
+{call .hello}
+  {param content: 'Nice to meet you!' /}
+  {param name: 'Maira' /}
+{/call}
+{/template}

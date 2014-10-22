@@ -1,0 +1,25 @@
+{namespace views}
+
+/**
+ * @param content
+ * @param title
+ */
+{template .home}
+<!doctype>
+<html>
+<head>
+  <title>{$title}</title>
+
+  <!-- build:css styles/allHome.css -->
+  <link rel="stylesheet" href="styles/styles.css">
+  <!-- endbuild -->
+
+  <!-- build:js scripts/allHome.js -->
+  <script src="scripts/script.js"></script>
+  <!-- endbuild -->
+</head>
+<body>
+  {$content|noAutoescape}
+</body>
+</html>
+{/template}

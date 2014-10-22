@@ -10,7 +10,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('test:integration', function(callback) {
-  var args = ['test/integration/**/*.js', '--slow', '1000'];
+  var args = ['test/integration/**/*.js', '--slow', '1000', '--timeout', '3000'];
   var config = {
     stdio: 'inherit'
   };
