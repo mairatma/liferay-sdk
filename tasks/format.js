@@ -8,7 +8,7 @@ var config = require('../src/flavor/ProductFlavors').generateFlavoredConfig();
 gulp.task('format:scripts', function() {
   var scripts = gulp.src('src/' + config.globScript)
     .pipe(plugins.esformatter())
-    .pipe(gulp.dest('src/public'));
+    .pipe(gulp.dest('src'));
 
   var tasks = gulp.src(['tasks/**/*.js'])
     .pipe(plugins.esformatter())
@@ -27,14 +27,14 @@ gulp.task('format:styles', function() {
     .pipe(plugins.cssbeautify({
       indent: '  '
     }))
-    .pipe(gulp.dest('src/public'));
+    .pipe(gulp.dest('src'));
 
   var scss = gulp.src('src/' + config.globScss)
     .pipe(plugins.csscomb())
     .pipe(plugins.cssbeautify({
       indent: '  '
     }))
-    .pipe(gulp.dest('src/public/styles'));
+    .pipe(gulp.dest('src'));
 
   return es.merge(styles, scss);
 });
