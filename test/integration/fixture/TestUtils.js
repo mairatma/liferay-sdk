@@ -98,7 +98,7 @@ var TestUtils = {
    * @param {!Function} callback The function to be called after the task is done.
    */
   runTask: function(name, callback) {
-    gulp.start(name).once('stop', callback);
+    return gulp.start(name).once('stop', callback);
   },
 
   /**
