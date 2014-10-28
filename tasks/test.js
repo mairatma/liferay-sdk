@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var plugins = require('gulp-load-plugins')();
 var spawn = require('child_process').spawn;
+var TestUtils = require('../test/integration/fixture/TestUtils');
 
 gulp.task('test', function() {
   return gulp.src(['test/unit/**/*.js', '!test/unit/**/fixture/**/*.js'])
@@ -17,8 +18,6 @@ gulp.task('test:integration', function(callback) {
 
   spawn('mocha', args, config)
     .on('exit', function() {
-      if (callback) {
-        callback();
-      }
+      TestUtils.cleanFiles(callback);
     });
 });
