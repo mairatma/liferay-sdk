@@ -9,7 +9,7 @@ var TestUtils = require('../fixture/TestUtils');
 
 var task;
 
-describe('watch', function() {
+describe.only('watch', function() {
   // This test is slower, since it runs lots of tasks together, so it will have
   // a higher timeout limit than normal.
   this.timeout(6000);
@@ -120,14 +120,12 @@ describe('watch', function() {
   it('should rebuild when font files change', function(done) {
     var fontContent = fs.readFileSync('src/public/fonts/liferay.svg', 'utf8');
 
-    writeFile('src/public/fonts/liferay2.svg', 'ffd8 ffe0', function() {
-      writeFile('src/public/fonts/liferay2.svg', fontContent, function() {
-        var iconsContent = fs.readFileSync('dist/public/fonts/icons.svg', 'utf8');
-        assert.notStrictEqual(-1, iconsContent.indexOf('glyph-name="liferay"'));
-        assert.notStrictEqual(-1, iconsContent.indexOf('glyph-name="liferay2"'));
+    writeFile('src/public/fonts/liferay2.svg', fontContent, function() {
+      var iconsContent = fs.readFileSync('dist/public/fonts/icons.svg', 'utf8');
+      assert.notStrictEqual(-1, iconsContent.indexOf('glyph-name="liferay"'));
+      assert.notStrictEqual(-1, iconsContent.indexOf('glyph-name="liferay2"'));
 
-        removeFile('src/public/fonts/liferay2.svg', done);
-      });
+      removeFile('src/public/fonts/liferay2.svg', done);
     });
   });
 
