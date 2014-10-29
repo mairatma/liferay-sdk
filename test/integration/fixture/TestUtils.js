@@ -1,6 +1,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var gutil = require('gulp-util');
 var merge = require('merge');
 var path = require('path');
 var sinon = require('sinon');
@@ -20,6 +21,9 @@ var TestUtils = {
     sinon.stub(ProductFlavors, 'generateFlavoredConfig', function() {
       return TestUtils.config;
     });
+
+    // Stub gutil
+    sinon.stub(gutil, 'log');
 
     // Changing the working directory so the tasks can work on the test assets.
     this.initialCwd = process.cwd();
@@ -48,6 +52,8 @@ var TestUtils = {
    */
   after: function(done) {
     ProductFlavors.generateFlavoredConfig.restore();
+
+    gutil.log.restore();
 
     // Clearing the cache for the required task files.
     this.requiredTasks.forEach(function(requiredTask) {

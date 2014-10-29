@@ -1,23 +1,27 @@
 'use strict';
 
 var gulp = require('gulp');
+var path = require('path');
 var plugins = require('gulp-load-plugins')();
-var spawn = require('child_process').spawn;
-var TestUtils = require('../test/integration/fixture/TestUtils');
+var execFile = require('child_process').execFile;
 
-gulp.task('test', function() {
-  return gulp.src(['test/unit/**/*.js', '!test/unit/**/fixture/**/*.js'])
-    .pipe(plugins.mocha());
-});
-
-gulp.task('test:integration', function(callback) {
+gulp.task('test:integration', function(done) {
   var args = ['test/integration/**/*.js', '--slow', '1000', '--timeout', '3000'];
   var config = {
     stdio: 'inherit'
   };
 
-  spawn('mocha', args, config)
-    .on('exit', function() {
-      TestUtils.cleanFiles(callback);
-    });
+  var localMocha = path.join(process.cwd(), 'node_modules', '.bin', 'mocha');
+
+  var child = execFile(localMocha, args, config, function() {
+    done();
+  });
+  child.stdout.pipe(process.stdout);
 });
+
+gulp.task('test:unit', function() {
+  return gulp.src(['test/unit/**/*.js', '!test/unit/**/fixture/**/*.js'])
+    .pipe(plugins.mocha());
+});
+
+gulp.task('test', ['test:unit', 'test:integration']);

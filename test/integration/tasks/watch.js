@@ -2,14 +2,13 @@
 
 var assert = require('assert');
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var fs = require('fs');
 var sinon = require('sinon');
 var TestUtils = require('../fixture/TestUtils');
 
 var task;
 
-describe.only('watch', function() {
+describe('watch', function() {
   // This test is slower, since it runs lots of tasks together, so it will have
   // a higher timeout limit than normal.
   this.timeout(6000);
@@ -18,7 +17,6 @@ describe.only('watch', function() {
     var instance = this;
 
     sinon.spy(gulp, 'watch');
-    sinon.stub(gutil, 'log');
 
     TestUtils.before();
 
@@ -41,7 +39,6 @@ describe.only('watch', function() {
   after(function(done) {
     task.once('stop', function() {
       gulp.watch.restore();
-      gutil.log.restore();
 
       TestUtils.after(done);
     });
