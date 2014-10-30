@@ -5,10 +5,12 @@ var fs = require('fs');
 var TestUtils = require('../fixture/TestUtils');
 
 describe('scripts', function() {
-  before(function() {
-    TestUtils.before();
+  before(function(done) {
+    TestUtils.before(function() {
+      TestUtils.requireTask('scripts');
 
-    TestUtils.requireTask('scripts');
+      done();
+    });
   });
 
   beforeEach(function(done) {

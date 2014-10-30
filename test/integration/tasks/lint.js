@@ -8,7 +8,7 @@ var through = require('through2');
 var TestUtils = require('../fixture/TestUtils');
 
 describe('lint', function() {
-  before(function() {
+  before(function(done) {
     mockery.enable({
       warnOnReplace: false,
       warnOnUnregistered: false
@@ -18,9 +18,11 @@ describe('lint', function() {
     jshint.reporter = sinon.stub().returns(through.obj());
     mockery.registerMock('gulp-jshint', jshint);
 
-    TestUtils.before();
+    TestUtils.before(function() {
+      TestUtils.requireTask('lint');
 
-    TestUtils.requireTask('lint');
+      done();
+    });
   });
 
   beforeEach(function(done) {

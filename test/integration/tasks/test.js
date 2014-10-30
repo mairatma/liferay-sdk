@@ -10,7 +10,7 @@ var through = require('through2');
 var TestUtils = require('../fixture/TestUtils');
 
 describe('test', function() {
-  before(function() {
+  before(function(done) {
     mockery.enable({
       warnOnReplace: false,
       warnOnUnregistered: false
@@ -29,9 +29,11 @@ describe('test', function() {
       return execFile;
     });
 
-    TestUtils.before();
+    TestUtils.before(function() {
+      TestUtils.requireTask('test');
 
-    TestUtils.requireTask('test');
+      done();
+    });
   });
 
   beforeEach(function(done) {
