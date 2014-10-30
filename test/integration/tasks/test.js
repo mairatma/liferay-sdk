@@ -1,9 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var child = require('child_process');
 var mockery = require('mockery');
-var path = require('path');
 var plugins = require('gulp-load-plugins')();
 var sinon = require('sinon');
 var through = require('through2');
@@ -16,18 +14,8 @@ describe('test', function() {
       warnOnUnregistered: false
     });
 
-    var mocha = sinon.stub().returns(through.obj());
-    mockery.registerMock('gulp-mocha', mocha);
-
-    var execFile = {
-      stdout: {
-        pipe: function() {}
-      }
-    };
-    sinon.stub(child, 'execFile', function(file, args, options, callback) {
-      process.nextTick(callback);
-      return execFile;
-    });
+    this.mocha = sinon.stub();
+    mockery.registerMock('gulp-mocha', this.mocha);
 
     TestUtils.before();
 
@@ -35,12 +23,13 @@ describe('test', function() {
   });
 
   beforeEach(function(done) {
+    this.mocha.returns(through.obj());
+
     TestUtils.beforeEach(done);
   });
 
   after(function(done) {
     mockery.disable();
-    child.execFile.restore();
 
     TestUtils.after(done);
   });
@@ -52,11 +41,9 @@ describe('test', function() {
     });
   });
 
-  it('should run integration tests', function(done) {
-    TestUtils.runTask('test:integration', function() {
-      assert.strictEqual(1, child.execFile.callCount);
-      assert.strictEqual('mocha', path.basename(child.execFile.getCall(0).args[0]));
-
+  it('should run all tests', function(done) {
+    TestUtils.runTask('test', function() {
+      assert.strictEqual(2, plugins.mocha.callCount);
       done();
     });
   });
