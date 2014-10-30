@@ -11,17 +11,20 @@ describe('default', function() {
   // a higher timeout limit than normal.
   this.timeout(4000);
 
-  before(function() {
-    TestUtils.before();
+  before(function(done) {
+    TestUtils.before(function() {
+      TestUtils.requireTask('build');
+      TestUtils.requireTask('clean');
+      TestUtils.requireTask('copy');
+      TestUtils.requireTask('default');
+      TestUtils.requireTask('images');
+      TestUtils.requireTask('fonts');
+      TestUtils.requireTask('scripts');
+      TestUtils.requireTask('styles');
+      TestUtils.requireTask('templates');
 
-    TestUtils.requireTask('build');
-    TestUtils.requireTask('copy');
-    TestUtils.requireTask('default');
-    TestUtils.requireTask('images');
-    TestUtils.requireTask('fonts');
-    TestUtils.requireTask('scripts');
-    TestUtils.requireTask('styles');
-    TestUtils.requireTask('templates');
+      done();
+    });
   });
 
   beforeEach(function(done) {

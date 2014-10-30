@@ -11,27 +11,26 @@ var task;
 describe('watch', function() {
   // This test is slower, since it runs lots of tasks together, so it will have
   // a higher timeout limit than normal.
-  this.timeout(6000);
+  this.timeout(7000);
 
   before(function(done) {
     var instance = this;
 
     sinon.spy(gulp, 'watch');
 
-    TestUtils.before();
+    TestUtils.before(function() {
+      TestUtils.requireTask('build');
+      TestUtils.requireTask('clean');
+      TestUtils.requireTask('copy');
+      TestUtils.requireTask('default');
+      TestUtils.requireTask('images');
+      TestUtils.requireTask('fonts');
+      TestUtils.requireTask('scripts');
+      TestUtils.requireTask('serve');
+      TestUtils.requireTask('styles');
+      TestUtils.requireTask('templates');
+      TestUtils.requireTask('watch');
 
-    TestUtils.requireTask('build');
-    TestUtils.requireTask('copy');
-    TestUtils.requireTask('default');
-    TestUtils.requireTask('images');
-    TestUtils.requireTask('fonts');
-    TestUtils.requireTask('scripts');
-    TestUtils.requireTask('serve');
-    TestUtils.requireTask('styles');
-    TestUtils.requireTask('templates');
-    TestUtils.requireTask('watch');
-
-    TestUtils.cleanFiles(function() {
       runWatchTask.call(instance, done);
     });
   });

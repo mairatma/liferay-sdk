@@ -8,7 +8,7 @@ var through = require('through2');
 var TestUtils = require('../fixture/TestUtils');
 
 describe('test', function() {
-  before(function() {
+  before(function(done) {
     mockery.enable({
       warnOnReplace: false,
       warnOnUnregistered: false
@@ -17,9 +17,11 @@ describe('test', function() {
     this.mocha = sinon.stub();
     mockery.registerMock('gulp-mocha', this.mocha);
 
-    TestUtils.before();
+    TestUtils.before(function() {
+      TestUtils.requireTask('test');
 
-    TestUtils.requireTask('test');
+      done();
+    });
   });
 
   beforeEach(function(done) {

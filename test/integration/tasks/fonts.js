@@ -5,10 +5,12 @@ var fs = require('fs');
 var TestUtils = require('../fixture/TestUtils');
 
 describe('fonts', function() {
-  before(function() {
-    TestUtils.before();
+  before(function(done) {
+    TestUtils.before(function() {
+      TestUtils.requireTask('fonts');
 
-    TestUtils.requireTask('fonts');
+      done();
+    });
   });
 
   beforeEach(function(done) {

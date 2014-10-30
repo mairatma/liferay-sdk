@@ -9,18 +9,20 @@ var TestUtils = require('../fixture/TestUtils');
 describe('build', function() {
   // This test is slower, since it runs lots of tasks together, so it will have
   // a higher timeout limit than normal.
-  this.timeout(4000);
+  this.timeout(4500);
 
-  before(function() {
-    TestUtils.before();
+  before(function(done) {
+    TestUtils.before(function() {
+      TestUtils.requireTask('build');
+      TestUtils.requireTask('copy');
+      TestUtils.requireTask('images');
+      TestUtils.requireTask('fonts');
+      TestUtils.requireTask('scripts');
+      TestUtils.requireTask('styles');
+      TestUtils.requireTask('templates');
 
-    TestUtils.requireTask('build');
-    TestUtils.requireTask('copy');
-    TestUtils.requireTask('images');
-    TestUtils.requireTask('fonts');
-    TestUtils.requireTask('scripts');
-    TestUtils.requireTask('styles');
-    TestUtils.requireTask('templates');
+      done();
+    });
   });
 
   beforeEach(function(done) {
