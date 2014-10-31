@@ -45,31 +45,30 @@ describe('watch', function() {
   });
 
   it('should copy new files to dist folder', function(done) {
-    writeFile('src/testFile.txt', '', function() {
-      assert.ok(fs.existsSync('dist/testFile.txt'));
-
-      removeFile('src/testFile.txt', done);
+    writeFile('src/testNew.txt', '', function() {
+      assert.ok(fs.existsSync('dist/testNew.txt'));
+      done();
     });
   });
 
   it('should remove deleted files from dist folder', function(done) {
-    writeFile('src/testFile.txt', '', function() {
-      removeFile('src/testFile.txt', function() {
-        assert.ok(!fs.existsSync('dist/testFile.txt'));
+    writeFile('src/testRemoved.txt', '', function() {
+      removeFile('src/testRemoved.txt', function() {
+        assert.ok(!fs.existsSync('dist/testRemoved.txt'));
         done();
       });
     });
   });
 
   it('should copy updated files to dist folder', function(done) {
-    writeFile('src/testFile.txt', '', function() {
+    writeFile('src/testCopied.txt', '', function() {
       var newContent = 'New Content';
 
-      writeFile('src/testFile.txt', newContent, function() {
-        var distContent = fs.readFileSync('dist/testFile.txt', 'utf8');
+      writeFile('src/testCopied.txt', newContent, function() {
+        var distContent = fs.readFileSync('dist/testCopied.txt', 'utf8');
         assert.strictEqual(newContent, distContent);
 
-        removeFile('src/testFile.txt', done);
+        done();
       });
     });
   });
@@ -108,7 +107,7 @@ describe('watch', function() {
         var newDistStats = fs.statSync('dist/public/images/liferay2.jpg');
         assert.ok(newDistStats.size < originalDistStats.size);
 
-        removeFile('src/public/images/liferay2.jpg', done);
+        done();
       });
     });
   });
@@ -121,7 +120,25 @@ describe('watch', function() {
       assert.notStrictEqual(-1, iconsContent.indexOf('glyph-name="liferay"'));
       assert.notStrictEqual(-1, iconsContent.indexOf('glyph-name="liferay2"'));
 
-      removeFile('src/public/fonts/liferay2.svg', done);
+      done();
+    });
+  });
+
+  it('should rebuild when font files are deleted', function(done) {
+    var fontContent = fs.readFileSync('src/public/fonts/liferay.svg', 'utf8');
+
+    writeFile('src/public/fonts/liferay3.svg', fontContent, function() {
+      var iconsContent = fs.readFileSync('dist/public/fonts/icons.svg', 'utf8');
+      assert.notStrictEqual(-1, iconsContent.indexOf('glyph-name="liferay"'));
+      assert.notStrictEqual(-1, iconsContent.indexOf('glyph-name="liferay3"'));
+
+      removeFile('src/public/fonts/liferay3.svg', function() {
+        iconsContent = fs.readFileSync('dist/public/fonts/icons.svg', 'utf8');
+        assert.notStrictEqual(-1, iconsContent.indexOf('glyph-name="liferay"'));
+        assert.strictEqual(-1, iconsContent.indexOf('glyph-name="liferay3"'));
+
+        done();
+      });
     });
   });
 

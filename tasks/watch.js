@@ -12,11 +12,12 @@ var task = gulp.task('watch', ['serve'], function(done) {
   gulp.watch('src/**/*', function(event) {
     var distpath = path.join('dist',
       path.relative(path.join(process.cwd(), 'src'), event.path));
+    var filepath = path.relative(process.cwd(), event.path);
 
     if (event.type === 'deleted') {
-      updateDeletedFile(event.path, distpath);
+      updateDeletedFile(filepath, distpath);
     } else {
-      updateChangedFile(event.path, distpath);
+      updateChangedFile(filepath, distpath);
     }
   });
 });
@@ -26,6 +27,13 @@ var task = gulp.task('watch', ['serve'], function(done) {
  */
 function changeHandled() {
   task.emit('changeHandled');
+}
+
+/**
+ * Handles a change made to a font file.
+ */
+function handleFontChanged() {
+  runSequence('fonts', changeHandled);
 }
 
 /**
@@ -39,6 +47,15 @@ function is(filepath, glob) {
 }
 
 /**
+ * Checks if a filepath is a font image.
+ * @param {String} filepath
+ * @return {Boolean}
+ */
+function isFont(filepath) {
+  return is(filepath, path.join('fonts', config.globIconfont));
+}
+
+/**
  * Builds the necessary resources to keep the project's build files updated
  * after the changes to the given file.
  * @param {String} filepath
@@ -46,13 +63,13 @@ function is(filepath, glob) {
  */
 function updateChangedFile(filepath, distpath) {
   var globTranslations = config.translationsFilepath.replace('{LOCALE}', '*');
-  filepath = path.relative(process.cwd(), filepath);
+
   if (is(filepath, config.globHtml)) {
     runSequence('templates:html', changeHandled);
   } else if (is(filepath, path.join('..', config.globMarkdown))) {
     runSequence('templates:markdown', changeHandled);
-  } else if (is(filepath, path.join('fonts', config.globIconfont))) {
-    runSequence('fonts', changeHandled);
+  } else if (isFont(filepath)) {
+    handleFontChanged();
   } else if (is(filepath, config.globImage)) {
     runSequence('images', changeHandled);
   } else if (is(filepath, config.globScript)) {
@@ -78,6 +95,15 @@ function updateChangedFile(filepath, distpath) {
  * @param {String} distpath
  */
 function updateDeletedFile(filepath, distpath) {
-  fs.unlink(distpath, changeHandled);
   gutil.log(gutil.colors.red('Deleted'), filepath);
+
+  if (fs.existsSync(distpath)) {
+    fs.unlinkSync(distpath);
+  }
+
+  if (isFont(filepath)) {
+    handleFontChanged();
+  } else {
+    changeHandled();
+  }
 }
