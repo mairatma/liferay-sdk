@@ -62,7 +62,7 @@ function updateChangedFile(filepath, distpath) {
   } else if (is(filepath, config.globStyle)) {
     runSequence('styles:css', 'templates', changeHandled);
   } else if (is(filepath, path.join('..', config.globTemplate))) {
-    runSequence('templates:soy', changeHandled);
+    runSequence('templates:markdown', changeHandled);
   } else if (is(filepath, path.join('../..', globTranslations))) {
     runSequence('templates', changeHandled);
   } else {

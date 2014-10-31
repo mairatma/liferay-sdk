@@ -173,6 +173,19 @@ describe('watch', function() {
     });
   });
 
+  it('should update markdown outputs when soy files change', function(done) {
+    var originalContent = fs.readFileSync('src/views/static.soy', 'utf8');
+    var newContent = originalContent.replace('Greeting', 'Title');
+
+    writeFile('src/views/static.soy', newContent, function() {
+      var distContent = fs.readFileSync('dist/markdown.html', 'utf8');
+      assert.strictEqual(-1, distContent.indexOf('Greeting'));
+      assert.notStrictEqual(-1, distContent.indexOf('Title'));
+
+      writeFile('src/views/static.soy', originalContent, done);
+    });
+  });
+
   it('should rebuild when the translation file changes', function(done) {
     var originalContent = fs.readFileSync('src/translations/translations_pt-BR.xlf', 'utf8');
     var newContent = originalContent.replace('Oi', 'Bom dia');
